@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunteck Realty | Candidate Recruitment v1.5</title>
+    <link rel="icon" type="image/png" href="https://assets-netstorage.groww.in/stock-assets/logos2/SUNTECK.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500;600&display=swap');
+
+        :root {
+            --gold: #b39359;
+            --black: #000000;
+            --offwhite: #fffcf9;
+            --border: #ececec;
+            --text: #111111;
+            --hero-url: url('https://www.propmart.co/wp-content/uploads/2021/10/gallery1.jpg');
+        }
+
+        * { box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--offwhite); color: var(--text); margin: 0; -webkit-font-smoothing: antialiased; }
+
+        .hero {
+            background-image: linear-gradient(to bottom, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.85) 60%, var(--offwhite) 100%), var(--hero-url);
+            background-size: cover; background-position: center 30%; padding: 60px 20px 140px; text-align: center;
+        }
+        .hero img { height: 55px; margin-bottom: 50px; }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.4rem, 6vw, 4rem); margin: 0; }
+        .hero p { color: var(--gold); text-transform: uppercase; letter-spacing: 6px; font-size: 0.8rem; margin-top: 15px; font-weight: 600; }
+
+        .form-wrapper { max-width: 960px; margin: -100px auto 100px; background: #fff; padding: 60px; box-shadow: 0 40px 80px rgba(0,0,0,0.06); border-radius: 4px; z-index: 10; position: relative; }
+        
+        .section-tag { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin: 50px 0 30px; display: flex; align-items: center; gap: 20px; }
+        .section-tag::after { content: ""; height: 1px; background: var(--gold); flex-grow: 1; opacity: 0.3; }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 35px; }
+        .full { grid-column: span 2; }
+
+        label { display: block; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); margin-bottom: 8px; }
+
+        .custom-select-wrapper { position: relative; width: 100%; }
+        
+        input, textarea {
+            width: 100%; border: none; border-bottom: 1px solid var(--border); padding: 12px 0; font-size: 1rem; background: transparent; transition: 0.3s; color: var(--text);
+        }
+        input:focus, textarea:focus { outline: none; border-bottom-color: var(--black); }
+        textarea { min-height: 80px; resize: vertical; }
+
+        .suggestion-list {
+            position: absolute; top: 100%; left: 0; width: 100%; background: #fff; border: 1px solid var(--border); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: none; z-index: 100; max-height: 250px; overflow-y: auto;
+        }
+        .suggestion-item { padding: 12px 15px; cursor: pointer; font-size: 0.9rem; border-bottom: 1px solid #f9f9f9; transition: 0.2s; }
+        .suggestion-item.active { background: var(--gold); color: #fff; }
+        .suggestion-item:hover { background: var(--offwhite); color: var(--gold); }
+
+        .upload-box { border: 1px dashed #ccc; padding: 40px; text-align: center; margin-top: 15px; cursor: pointer; transition: 0.3s; }
+        .upload-box:hover { border-color: var(--gold); background: #fffdfa; }
+        .upload-box svg { width: 40px; fill: var(--gold); margin-bottom: 10px; }
+
+        #success-ui {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; 
+            display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; text-align: center;
+        }
+
+        .btn-prime {
+            background: var(--black); color: #fff; width: 100%; padding: 22px; border: none; 
+            text-transform: uppercase; letter-spacing: 4px; font-weight: 600; cursor: pointer; margin-top: 50px; transition: 0.4s;
+        }
+        .btn-prime:hover { background: var(--gold); transform: translateY(-2px); }
+
+        @media (max-width: 768px) { 
+            .grid { grid-template-columns: 1fr; gap: 25px; } 
+            .form-wrapper { padding: 30px 20px; margin-top: -60px; }
+            .hero { padding-bottom: 100px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="success-ui">
+        <img src="https://sunteckproperties.com/wp-content/uploads/2023/12/sunteck-png-logo-ds.png" style="height: 50px; margin-bottom: 30px;">
+        <h2>Thank You</h2>
+        <p>Your enquiry has been sent to Sunteck HQ. We will get back to you shortly.</p>
+        <button class="btn-prime" style="width:auto; padding: 15px 40px;" onclick="location.reload()">Back to Form</button>
+    </div>
+
+    <div class="hero">
+        <img src="https://sunteckproperties.com/wp-content/uploads/2023/12/sunteck-png-logo-ds.png" alt="Sunteck Logo">
+        <h1>Refining Excellence</h1>
+        <p>Careers at Sunteck</p>
+    </div>
+
+    <div class="form-wrapper">
+        <form id="sunteckForm">
+            <div class="section-tag">Identity</div>
+            <div class="grid">
+                <div><label>First Name</label><input type="text" name="First Name" required></div>
+                <div><label>Last Name</label><input type="text" name="Last Name" required></div>
+                <div><label>Phone Number</label><input type="tel" name="Phone Number" required></div>
+                <div class="custom-select-wrapper">
+                    <label>Email Address</label>
+                    <input type="email" name="Email Address" id="emailIn" autocomplete="off" required>
+                    <div class="suggestion-list" id="emailList"></div>
+                </div>
+                <div class="custom-select-wrapper full">
+                    <label>Current Location</label>
+                    <input type="text" name="Current Location" id="locIn" placeholder="Type city..." autocomplete="off" required>
+                    <div class="suggestion-list" id="locList"></div>
+                </div>
+                <div class="full"><label>Date of Birth</label><input type="date" name="Date of Birth" required></div>
+            </div>
+
+            <div class="section-tag">Career Status</div>
+            <div class="grid">
+                <div class="custom-select-wrapper">
+                    <label>Current Job Title</label>
+                    <input type="text" name="Current Job Title" id="titleIn" autocomplete="off">
+                    <div class="suggestion-list" id="titleList"></div>
+                </div>
+                <div class="custom-select-wrapper">
+                    <label>Current Company</label>
+                    <input type="text" name="Current Company" id="compIn" autocomplete="off">
+                    <div class="suggestion-list" id="compList"></div>
+                </div>
+                <div><label>Total Experience</label><input type="text" name="Total Work Experience"></div>
+                <div><label>Industry Experience</label><input type="text" name="Industry Experience"></div>
+                <div class="full"><label>Key Competencies</label><textarea name="Key Skills"></textarea></div>
+            </div>
+
+            <div class="section-tag">Remuneration</div>
+            <div class="grid">
+                <div><label>Current CTC (₹)</label><input type="text" name="Current CTC" class="currency-in" placeholder="0"></div>
+                <div><label>In-hand Salary (₹)</label><input type="text" name="In-hand Salary" class="currency-in" placeholder="0"></div>
+                <div><label>Expected CTC (₹)</label><input type="text" name="Expected CTC" class="currency-in" placeholder="0"></div>
+                <div><label>Min. Acceptable Salary (₹)</label><input type="text" name="Minimum Acceptable Salary" class="currency-in" placeholder="0"></div>
+            </div>
+
+            <div class="section-tag">Performance Insights</div>
+            <div class="full"><label>Why Sunteck Realty?</label><textarea name="Why join us?"></textarea></div>
+            <div class="full"><label>Significant Sales Achievement</label><textarea name="Biggest deal closed"></textarea></div>
+            <div class="full"><label>Handling Professional Rejection</label><textarea name="Handling rejection"></textarea></div>
+
+            <div class="section-tag">Documentation</div>
+            <div class="upload-box" onclick="document.getElementById('resFile').click()">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                <p>Attach Professional Resume (PDF/DOC)</p>
+                <input type="file" id="resFile" style="display:none">
+                <div id="resName" style="margin-top:10px; color:var(--gold); font-weight:600;"></div>
+            </div>
+
+            <button type="submit" class="btn-prime" id="subBtn">Submit Portfolio</button>
+        </form>
+    </div>
+
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbymQkiuACrBBrXg84Ad3Cqpw9tP2Ql_GHkw3l-zPPwMMLmJeGv9UEu6njmmACQMyAkz/exec";
+
+        // Data Pools
+        const cities = ["Agra","Ahmedabad","Amritsar","Aurangabad","Bangalore","Bhopal","Bhubaneswar","Bareilly","Chandigarh","Chennai","Coimbatore","Cuttack","Delhi","Dehradun","Dhanbad","Erode","Faridabad","Gurgaon","Ghaziabad","Guwahati","Hyderabad","Howrah","Indore","Jaipur","Jodhpur","Jamshedpur","Kolkata","Kanpur","Kochi","Lucknow","Ludhiana","Mumbai","Mysore","Madurai","Nagpur","Nashik","Noida","Ooty","Pune","Patna","Panaji","Rajkot","Ranchi","Surat","Srinagar","Salem","Thane","Trivandrum","Udaipur","Vadodara","Varanasi","Vijayawada","Yamunanagar"];
+        const titles = ["Sales Executive","Senior Sales Executive","Sales Manager","Senior Sales Manager","Closing Manager","Senior Closing Manager","Business Development Executive","Business Development Manager","Assistant Sales Manager","Area Sales Manager","Regional Sales Manager","Territory Sales Manager","Relationship Manager","Senior Relationship Manager","Key Account Manager","Channel Sales Manager","Direct Sales Executive","Inside Sales Executive","Pre-Sales Executive","Telecaller","Telesales Executive","Customer Relationship Executive","Client Acquisition Manager","Property Advisor","Real Estate Consultant","Real Estate Sales Executive","Investment Advisor","Portfolio Manager","Leasing Manager","Site Sales Executive","Field Sales Executive","Corporate Sales Manager","Enterprise Sales Manager","Retail Sales Executive","Luxury Sales Consultant","Lead Generation Executive","CRM Executive","Sales Coordinator","Marketing Executive","Digital Marketing Executive","Brand Manager","Operations Executive","Operations Manager","Team Leader","Assistant Manager","Deputy Manager","General Manager","Zonal Manager","Vice President Sales","Director Sales","Head of Sales"];
+        const companies = ["DLF Limited","Anarock Property Consultants","Godrej Properties","Lodha Group","Oberoi Realty","Palladian Partners Advisory","Prestige Group","Brigade Group","Sobha Limited","Mahindra Lifespace","Hiranandani Group","Runwal Group","Rustomjee","Kalpataru Group","Tata Housing","The Guardians Real Estate Advisory","Kolte Patil Developers","HDFC Bank","ICICI Bank","Axis Bank","Kotak Mahindra Bank","State Bank of India","Bajaj Finance","HDFC Ltd","LIC Housing Finance","Aditya Birla Finance","Tata Capital","Indiabulls Housing Finance","Shriram Finance","L&T Finance","Muthoot Finance"];
+        const domains = ['gmail.com', 'yahoo.com', 'icloud.com', 'outlook.com'];
+
+        // Indian Currency Formatter
+        document.querySelectorAll('.currency-in').forEach(input => {
+            input.addEventListener('input', function(e) {
+                let x = e.target.value.replace(/\D/g, '');
+                if (x.length > 0) {
+                    let lastThree = x.substring(x.length - 3);
+                    let otherNumbers = x.substring(0, x.length - 3);
+                    if (otherNumbers != '') lastThree = ',' + lastThree;
+                    let res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+                    e.target.value = res;
+                }
+            });
+        });
+
+        // Advanced Dropdown with Keyboard Nav
+        function setupDropdown(inputId, listId, data, isEmail = false) {
+            const input = document.getElementById(inputId);
+            const list = document.getElementById(listId);
+            let activeIndex = -1;
+
+            input.addEventListener('input', function() {
+                const val = this.value.toLowerCase();
+                list.innerHTML = '';
+                activeIndex = -1;
+                let filtered = isEmail && val.includes('@') ? domains.map(d => val.split('@')[0] + '@' + d) : data.filter(i => i.toLowerCase().includes(val));
+
+                if (filtered.length > 0 && val !== '') {
+                    filtered.forEach((item, index) => {
+                        const div = document.createElement('div');
+                        div.className = 'suggestion-item';
+                        div.innerText = item;
+                        div.onclick = () => { input.value = item; list.style.display = 'none'; };
+                        list.appendChild(div);
+                    });
+                    list.style.display = 'block';
+                } else { list.style.display = 'none'; }
+            });
+
+            input.addEventListener('keydown', function(e) {
+                const items = list.querySelectorAll('.suggestion-item');
+                if (list.style.display === 'none') return;
+
+                if (e.key === 'ArrowDown') {
+                    activeIndex = (activeIndex + 1) % items.length;
+                    updateActive(items);
+                } else if (e.key === 'ArrowUp') {
+                    activeIndex = (activeIndex - 1 + items.length) % items.length;
+                    updateActive(items);
+                } else if (e.key === 'Enter' && activeIndex > -1) {
+                    e.preventDefault();
+                    items[activeIndex].click();
+                }
+            });
+
+            function updateActive(items) {
+                items.forEach((it, i) => it.classList.toggle('active', i === activeIndex));
+                if(items[activeIndex]) items[activeIndex].scrollIntoView({ block: 'nearest' });
+            }
+        }
+
+        setupDropdown('emailIn', 'emailList', [], true);
+        setupDropdown('locIn', 'locList', cities);
+        setupDropdown('titleIn', 'titleList', titles);
+        setupDropdown('compIn', 'compList', companies);
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.custom-select-wrapper')) {
+                document.querySelectorAll('.suggestion-list').forEach(l => l.style.display = 'none');
+            }
+        });
+
+        document.getElementById('resFile').addEventListener('change', (e) => {
+            document.getElementById('resName').innerText = e.target.files[0] ? "Attached: " + e.target.files[0].name : "";
+        });
+
+        document.getElementById('sunteckForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('subBtn');
+            btn.disabled = true; btn.innerText = "Transmitting...";
+            const data = {};
+            new FormData(this).forEach((v, k) => { data[k] = v; });
+            try {
+                await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) });
+                document.getElementById('success-ui').style.display = "flex";
+                window.scrollTo(0,0);
+            } catch (err) {
+                alert("Submission error.");
+                btn.disabled = false; btn.innerText = "Submit Portfolio";
+            }
+        });
+    </script>
+</body>
+</html>
